@@ -1,0 +1,25 @@
+# Grafana on your own machine, reading the sensor history from CloudWatch.
+#
+#   docker compose up -d        then open http://localhost:3000
+#
+# Grafana signs its CloudWatch requests with the AWS credentials in ~/.aws,
+# mounted read-only. Use a profile whose identity has only the read-only policy
+# created by the CDK stack (output: GrafanaPolicyArn).
+services:
+  grafana:
+    image: grafana/grafana-oss:11.4.0
+    ports:
+      - "127.0.0.1:3000:3000" # reachable from this machine only
+    environment:
+      AWS_REGION: ${AWS_REGION:-eu-west-1}
+      AWS_PROFILE: ${AWS_PROFILE:-default}
+      AWS_SHARED_CREDENTIALS_FILE: /aws/credentials
+      AWS_CONFIG_FILE: /aws/config
+    volumes:
+      - ./provisioning:/etc/grafana/provisioning:ro
+      - ./dashboards:/var/lib/grafana/dashboards:ro
+      - ~/.aws:/aws:ro
+      - grafana-data:/var/lib/grafana
+
+volumes:
+  grafana-data:

@@ -1,0 +1,89 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "my little house",
+      "intents": [
+        { "name": "AMAZON.HelpIntent", "samples": [] },
+        { "name": "AMAZON.StopIntent", "samples": [] },
+        { "name": "AMAZON.CancelIntent", "samples": [] },
+        { "name": "AMAZON.NavigateHomeIntent", "samples": [] },
+        { "name": "AMAZON.FallbackIntent", "samples": [] },
+        {
+          "name": "GetTemperatureIntent",
+          "slots": [{ "name": "Room", "type": "ROOM" }],
+          "samples": [
+            "what is the temperature in the {Room}",
+            "what's the temperature in the {Room}",
+            "how warm is the {Room}",
+            "for the {Room} temperature",
+            "{Room} temperature"
+          ]
+        },
+        {
+          "name": "GetHumidityIntent",
+          "slots": [{ "name": "Room", "type": "ROOM" }],
+          "samples": [
+            "what is the humidity in the {Room}",
+            "what's the humidity in the {Room}",
+            "how humid is the {Room}",
+            "for the {Room} humidity",
+            "{Room} humidity"
+          ]
+        },
+        {
+          "name": "GetDoorStatusIntent",
+          "slots": [{ "name": "Room", "type": "ROOM" }],
+          "samples": [
+            "is the {Room} door open",
+            "is the {Room} door closed",
+            "is the door in the {Room} open",
+            "check the {Room} door"
+          ]
+        },
+        {
+          "name": "TurnOnIntent",
+          "slots": [
+            { "name": "Room", "type": "ROOM" },
+            { "name": "Device", "type": "DEVICE" }
+          ],
+          "samples": [
+            "turn on the {Room} {Device}",
+            "turn the {Room} {Device} on",
+            "switch on the {Room} {Device}",
+            "turn on the {Device} in the {Room}"
+          ]
+        },
+        {
+          "name": "TurnOffIntent",
+          "slots": [
+            { "name": "Room", "type": "ROOM" },
+            { "name": "Device", "type": "DEVICE" }
+          ],
+          "samples": [
+            "turn off the {Room} {Device}",
+            "turn the {Room} {Device} off",
+            "switch off the {Room} {Device}",
+            "turn off the {Device} in the {Room}"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "name": "ROOM",
+          "values": [
+            { "id": "livingroom", "name": { "value": "living room", "synonyms": ["lounge", "sitting room"] } },
+            { "id": "bedroom", "name": { "value": "bedroom", "synonyms": ["bed room"] } },
+            { "id": "kitchen", "name": { "value": "kitchen", "synonyms": [] } }
+          ]
+        },
+        {
+          "name": "DEVICE",
+          "values": [
+            { "id": "light", "name": { "value": "light", "synonyms": ["lights", "lamp"] } },
+            { "id": "fan", "name": { "value": "fan", "synonyms": ["ventilation", "ventilator"] } }
+          ]
+        }
+      ]
+    }
+  }
+}

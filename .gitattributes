@@ -1,0 +1,2 @@
+# Same line endings on Windows and in CI, so generated files compare equal.
+* text=auto eol=lf

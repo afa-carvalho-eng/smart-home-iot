@@ -1,0 +1,12 @@
+apiVersion: 1
+
+datasources:
+  - name: CloudWatch
+    uid: cloudwatch
+    type: cloudwatch
+    isDefault: true
+    editable: false
+    jsonData:
+      # "default" = the AWS SDK credential chain (here: the mounted ~/.aws profile).
+      authType: default
+      defaultRegion: ${AWS_REGION}

@@ -1,0 +1,34 @@
+# Device secrets: private keys and Wi-Fi credentials. Never commit these.
+certs/
+firmware/include/secrets.h
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# CDK
+cdk.out/
+cdk.context.json
+
+# PlatformIO
+.pio/
+
+# Android / Gradle
+watch/.gradle/
+watch/build/
+watch/app/build/
+watch/local.properties
+.idea/
+*.iml
+
+# Editors and OS
+.vscode/
+.DS_Store
+Thumbs.db
+.env

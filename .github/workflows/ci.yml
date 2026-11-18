@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  cloud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: pip install -e ".[dev]" -r infra/requirements.txt
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Unit tests
+        run: pytest
+      - name: Dashboard is up to date
+        run: |
+          python tools/build_dashboard.py
+          git diff --exit-code grafana/dashboards
+      - name: Synthesize the infrastructure
+        working-directory: infra
+        env:
+          CDK_OUTDIR: ${{ runner.temp }}/cdk.out
+        run: python app.py
+
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: platformio-${{ hashFiles('firmware/platformio.ini') }}
+      - name: Install PlatformIO
+        run: pip install platformio
+      - name: Compile
+        working-directory: firmware
+        run: |
+          # The real secrets file is never in the repository; the template compiles.
+          cp include/secrets.example.h include/secrets.h
+          pio run
